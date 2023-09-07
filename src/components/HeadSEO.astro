@@ -1,0 +1,29 @@
+---
+import { siteConfig } from '@/config'
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site)
+---
+
+<meta charset="utf-8" />
+<meta name="robots" content="index, follow" />
+<meta name="googlebot" content="index, follow" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="generator" content={Astro.generator} />
+<link rel="canonical" href={canonicalURL} />
+<link rel="shortcut icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="sitemap" type="application/xml" href="/sitemap-index.xml" />
+<title>{siteConfig.title}</title>
+<meta name="title" content={siteConfig.title} />
+<meta name="description" content={siteConfig.description} />
+
+<meta property="og:type" content="website" />
+<meta property="og:url" content={canonicalURL} />
+<meta property="og:title" content={siteConfig.title} />
+<meta property="og:description" content={siteConfig.description} />
+<meta property="og:image" content={siteConfig.ogImage} />
+
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content={canonicalURL} />
+<meta property="twitter:title" content={siteConfig.title} />
+<meta property="twitter:description" content={siteConfig.description} />
+<meta property="twitter:image" content={siteConfig.ogImage} />

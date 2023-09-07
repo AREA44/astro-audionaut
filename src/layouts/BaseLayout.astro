@@ -1,0 +1,23 @@
+---
+import HeadSEO from '@/components/HeadSEO.astro'
+import HeaderCard from '@/components/HeaderCard.astro'
+import Footer from '@/components/Footer.astro'
+---
+
+<!doctype html>
+<html lang="en" data-theme="light">
+  <head>
+    <HeadSEO />
+  </head>
+  <body class="min-h-screen bg-base-200">
+    <div class="container mx-auto lg:max-w-[960px]">
+      <div class="w-full md:flex md:justify-center">
+        <main class="-mt-5 w-full">
+          <HeaderCard title="Astro Audionaut" subtitle="Created by AREA44" />
+          <slot />
+        </main>
+      </div>
+      <Footer />
+    </div>
+  </body>
+</html>

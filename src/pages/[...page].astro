@@ -1,0 +1,40 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro'
+import HorizontalCard from '@/components/HorizontalCard.astro'
+import AudioPlayer from '@/components/AudioPlayer.astro'
+import Pagination from '@/components/Pagination.astro'
+import { getCollection } from 'astro:content'
+import { siteConfig } from '@/config'
+
+export async function getStaticPaths({ paginate }) {
+  const audioCollection = await getCollection('audio')
+  audioCollection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  return paginate(audioCollection, { pageSize: siteConfig.pageSize })
+}
+const { page } = Astro.props
+---
+
+<BaseLayout
+  title={siteConfig.title}
+  description={siteConfig.description}
+  ogImage={siteConfig.ogImage}
+>
+  <div class="card min-w-full bg-base-100 shadow-md p-3 pb-3 mt-12">
+    {
+      page.data.map((audio: any, index: number) => (
+        <HorizontalCard
+          title={audio.data.title}
+          cover={audio.data.cover}
+          desc={audio.data.description}
+          audioUrl={audio.data.audioUrl}
+          date={audio.data.date}
+          duration={audio.data.duration}
+          id={'card-' + index}
+        />
+      ))
+    }
+  </div>
+  <Pagination page={page} />
+</BaseLayout>
+
+<AudioPlayer />

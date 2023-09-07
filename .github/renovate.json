@@ -1,0 +1,7 @@
+{
+  "extends": ["config:base"],
+  "dependencyDashboard": true,
+  "labels": ["renovate"],
+  "automerge": false,
+  "schedule": ["before 4am on Monday"]
+}

@@ -1,0 +1,36 @@
+---
+const { page } = Astro.props
+
+function getPagination(current: number, last: number, size: number) {
+  let pagination = [current]
+  const offset = Math.floor(size / 2)
+  const leftOffset = last - current > offset ? offset : last - current
+  const rightOffset = current - 1 > offset ? offset : current - 1
+  for (let i = 1; i < 5 - leftOffset; i++)
+    if (current - i > 0) pagination.unshift(current - i)
+  for (let i = 1; i < 5 - rightOffset; i++)
+    if (current + i <= last) pagination.push(current + i)
+  return pagination
+}
+
+const pagination = getPagination(page.currentPage, page.lastPage, 5)
+---
+
+<div class="w-full mt-8 flex justify-center">
+  <div class="join bg-base-100 shadow-md">
+    {
+      pagination.map((item) => (
+        <a
+          href={item == 1 ? '/' : `/${item}`}
+          class={
+            item == page.currentPage
+              ? 'join-item btn btn-active'
+              : 'join-item btn bg-base-100'
+          }
+        >
+          {item}
+        </a>
+      ))
+    }
+  </div>
+</div>

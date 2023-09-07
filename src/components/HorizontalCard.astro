@@ -1,0 +1,73 @@
+---
+import PlayIcon from '@/components/icons/playIcon.astro'
+import PauseIcon from '@/components/icons/pauseIcon.astro'
+const { title, cover, desc, audioUrl, id, date, duration } = Astro.props
+
+import dayjs from 'dayjs'
+import localizedFormat from 'dayjs/plugin/localizedFormat'
+dayjs.extend(localizedFormat)
+
+let coverImage = cover ? cover : 'cover-images/defaultCover.jpg'
+const displayDate = dayjs(date).format('ll')
+
+function formatTime(secs) {
+  if (isNaN(secs) || secs < 0) {
+    const segmentedTime = secs.split(':')
+    return segmentedTime[0] == '00' || segmentedTime[0] == '0' ? secs : null
+  }
+
+  const hours = Math.floor(secs / 3600)
+  const minutes = Math.floor((secs % 3600) / 60)
+  const seconds = Math.floor(secs % 60)
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
+  const formattedseconds = seconds < 10 ? `0${seconds}` : seconds
+
+  return hours > 0
+    ? `${hours}:${formattedMinutes}:${formattedseconds}`
+    : `${minutes}:${formattedseconds}`
+}
+
+const displayDuration = formatTime(duration)
+---
+
+<div class="audio-card">
+  <div class="hero-content flex-row">
+    <img
+      src={coverImage}
+      alt={title}
+      class="h-[4.5rem] w-[4.5rem] rounded-md object-cover shadow-lg md:h-24 md:w-24"
+    />
+    <div class="w-full grow overflow-auto">
+      <h2 class="truncate text-sm font-semibold md:text-xl">
+        {title}
+      </h2>
+      <p class="text-xs font-medium opacity-60">
+        {displayDuration && displayDuration + ' • '}
+        {displayDate}
+      </p>
+      <p class="my-1 line-clamp-2 text-xs md:text-sm">{desc}</p>
+    </div>
+    <label class="btn btn-circle swap md:mx-2">
+      <input
+        type="checkbox"
+        class="card-pay-buttons"
+        id={id}
+        data-audio-url={audioUrl}
+        aria-label="Play and pause"
+      />
+      <div class="swap-off">
+        <PlayIcon />
+      </div>
+      <div class="swap-on">
+        <PauseIcon />
+      </div>
+    </label>
+  </div>
+  <hr class="my-3 border-base-content opacity-[.15]" />
+</div>
+
+<style>
+  .audio-card:last-child hr {
+    display: none;
+  }
+</style>
