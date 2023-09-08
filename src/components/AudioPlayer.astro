@@ -8,12 +8,12 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
 
 <div
   id="audio-player-container"
-  class="w-full z-20 bottom-0 fixed bg-base-100 px-5 h-16 items-center transition-opacity hidden opacity-0 duration-500"
+  class="fixed bottom-0 z-20 hidden h-16 w-full items-center bg-base-100 px-5 opacity-0 transition-opacity duration-500"
 >
   <audio src="" preload="metadata"></audio>
   <span
     id="audio-loading"
-    class="loading loading-spinner loading-md min-w-[1.5rem] hidden"></span>
+    class="loading loading-spinner loading-md hidden min-w-[1.5rem]"></span>
   <label id="audio-control" class="swap hidden">
     <input type="checkbox" id="play-icon" />
     <div id="play-icon-svg" class="swap-off">
@@ -33,7 +33,7 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
     value="0"
     class="range range-xs mx-5"
   />
-  <label class="ml-5 swap">
+  <label class="swap ml-5">
     <input id="mute-icon" type="checkbox" />
     <div class="swap-off">
       <AudioIcon />
@@ -42,11 +42,10 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
       <AudioMutedIcon />
     </div>
   </label>
-  <div class="dropdown dropdown-top dropdown-end ml-5 h-6">
+  <div class="dropdown dropdown-end dropdown-top ml-5 h-6">
     <button tabindex="0">
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        class="icon icon-tabler icon-tabler-dots-vertical"
         width="24"
         height="24"
         viewBox="0 0 24 24"
@@ -64,7 +63,7 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
     </button>
     <ul
       tabindex="0"
-      class="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
+      class="menu dropdown-content rounded-box z-[1] w-52 bg-base-100 p-2 shadow"
     >
       <li>
         <a href="#" download id="audio-download-link">

@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@/layouts/BaseLayout.astro'
-import HorizontalCard from '@/components/HorizontalCard.astro'
+import AudioCard from '@/components/AudioCard.astro'
 import AudioPlayer from '@/components/AudioPlayer.astro'
 import Pagination from '@/components/Pagination.astro'
 import { getCollection } from 'astro:content'
@@ -19,10 +19,10 @@ const { page } = Astro.props
   description={siteConfig.description}
   ogImage={siteConfig.ogImage}
 >
-  <div class="card min-w-full bg-base-100 shadow-md p-3 pb-3 mt-12">
+  <div class="card mt-12 min-w-full bg-base-100 p-3 pb-3 shadow-md">
     {
       page.data.map((audio: any, index: number) => (
-        <HorizontalCard
+        <AudioCard
           title={audio.data.title}
           cover={audio.data.cover}
           desc={audio.data.description}

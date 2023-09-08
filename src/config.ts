@@ -3,5 +3,5 @@ export const siteConfig = {
   description: 'An audio player built with Astro.js',
   url: 'https://astro-audionaut.vercel.app',
   ogImage: 'https://astro-audionaut.vercel.app/og-image.png',
-  pageSize: 2,
+  pageSize: 5,
 }
