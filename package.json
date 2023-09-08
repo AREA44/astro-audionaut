@@ -14,7 +14,7 @@
   "dependencies": {
     "@astrojs/sitemap": "^3.0.0",
     "@astrojs/tailwind": "^5.0.0",
-    "astro": "^3.0.8",
+    "astro": "^3.0.12",
     "daisyui": "^3.7.3",
     "dayjs": "^1.11.9",
     "sharp": "^0.32.5",

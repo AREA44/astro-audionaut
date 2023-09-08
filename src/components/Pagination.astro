@@ -16,7 +16,7 @@ function getPagination(current: number, last: number, size: number) {
 const pagination = getPagination(page.currentPage, page.lastPage, 5)
 ---
 
-<div class="w-full mt-8 flex justify-center">
+<div class="mt-8 flex w-full justify-center">
   <div class="join bg-base-100 shadow-md">
     {
       pagination.map((item) => (
@@ -24,8 +24,8 @@ const pagination = getPagination(page.currentPage, page.lastPage, 5)
           href={item == 1 ? '/' : `/${item}`}
           class={
             item == page.currentPage
-              ? 'join-item btn btn-active'
-              : 'join-item btn bg-base-100'
+              ? 'btn join-item btn-active'
+              : 'btn join-item bg-base-100'
           }
         >
           {item}
