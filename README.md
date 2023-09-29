@@ -1,8 +1,8 @@
 # Astro Audionaut
 
-[![Built with Astro](https://astro.badg.es/v1/built-with-astro/tiny.svg)](https://astro.build)
+[![Built with Astro](https://astro.badg.es/v2/built-with-astro/tiny.svg)](https://astro.build)
 
-Astro Audionaut is an audio player built with [Astro.js](https://astro.build).
+Astro Audionaut is an audio player built with [Astro](https://astro.build).
 
 ## Installation
 

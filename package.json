@@ -1,8 +1,8 @@
 {
   "name": "@area44/astro-audionaut",
-  "version": "23.9.8",
+  "version": "23.9.30",
   "private": true,
-  "description": "An audio player built with Astro.js",
+  "description": "An audio player built with Astro",
   "author": "AREA44",
   "scripts": {
     "build": "astro build",
