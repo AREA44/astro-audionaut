@@ -10,10 +10,10 @@ dependencies:
     version: 3.0.5
   '@astrojs/tailwind':
     specifier: ^5.1.0
-    version: 5.1.0(astro@4.2.1)(tailwindcss@3.4.1)
+    version: 5.1.0(astro@4.2.6)(tailwindcss@3.4.1)
   astro:
-    specifier: ^4.2.1
-    version: 4.2.1(@types/node@20.11.5)
+    specifier: ^4.2.6
+    version: 4.2.6(@types/node@20.11.8)
   daisyui:
     specifier: ^4.6.0
     version: 4.6.0(postcss@8.4.32)
@@ -29,8 +29,8 @@ dependencies:
 
 devDependencies:
   '@types/node':
-    specifier: ^20.11.5
-    version: 20.11.5
+    specifier: ^20.11.8
+    version: 20.11.8
   prettier:
     specifier: ^3.2.4
     version: 3.2.4
@@ -60,16 +60,16 @@ packages:
     resolution: {integrity: sha512-o/ObKgtMzl8SlpIdzaxFnt7SATKPxu4oIP/1NL+HDJRzxfJcAkOTAb/ZKMRyULbz4q+1t2/DAebs2Z1QairkZw==}
     dev: true
 
-  /@astrojs/compiler@2.3.4:
-    resolution: {integrity: sha512-33/YtWoBCE0cBUNy1kh78FCDXBoBANX87ShgATlAHECYbG2+buNTAgq4Xgz4t5NgnEHPN21GIBC2Mvvwisoutw==}
+  /@astrojs/compiler@2.5.1:
+    resolution: {integrity: sha512-o2hKiFJXZOm1Gov+RGXSWnKlnb/UF7KRTx/Y2uazYe3+MrLY+sqLN+yB4EH2bElc0l1K9cDb4mZSejuq563rGQ==}
     dev: false
 
   /@astrojs/internal-helpers@0.2.1:
     resolution: {integrity: sha512-06DD2ZnItMwUnH81LBLco3tWjcZ1lGU9rLCCBaeUCGYe9cI0wKyY2W3kDyoW1I6GmcWgt1fu+D1CTvz+FIKf8A==}
     dev: false
 
-  /@astrojs/markdown-remark@4.1.0:
-    resolution: {integrity: sha512-JnIy6zk+6f/SgSVMZecZFxQt0faT1uBckwYCuBxKH1hYYJsal8OOe+tx6JxfnyaV+xViyjUvQ28mmn+p/F5LkQ==}
+  /@astrojs/markdown-remark@4.2.0:
+    resolution: {integrity: sha512-qQB+LoxmIqzkhLXaQAzfzlBxZU1jeQYailsifurz89WeY0Q8ywIj8uQQSyqxb7rPPg3ZfdNdxsN9lF5UaCRn0w==}
     dependencies:
       '@astrojs/prism': 3.0.0
       github-slugger: 2.0.0
@@ -103,13 +103,13 @@ packages:
       zod: 3.22.4
     dev: false
 
-  /@astrojs/tailwind@5.1.0(astro@4.2.1)(tailwindcss@3.4.1):
+  /@astrojs/tailwind@5.1.0(astro@4.2.6)(tailwindcss@3.4.1):
     resolution: {integrity: sha512-BJoCDKuWhU9FT2qYg+fr6Nfb3qP4ShtyjXGHKA/4mHN94z7BGcmauQK23iy+YH5qWvTnhqkd6mQPQ1yTZTe9Ig==}
     peerDependencies:
       astro: ^3.0.0 || ^4.0.0
       tailwindcss: ^3.0.24
     dependencies:
-      astro: 4.2.1(@types/node@20.11.5)
+      astro: 4.2.6(@types/node@20.11.8)
       autoprefixer: 10.4.15(postcss@8.4.32)
       postcss: 8.4.32
       postcss-load-config: 4.0.2(postcss@8.4.32)
@@ -974,15 +974,15 @@ packages:
     resolution: {integrity: sha512-w+tIMs3rq2afQdsPJlODhoUEKzFP1ayaoyl1CcnwtIlsVe7K7bA1NGm4s3PraqTLlXnbIN84zuBlxBWo1u9BLw==}
     dev: false
 
-  /@types/node@20.11.5:
-    resolution: {integrity: sha512-g557vgQjUUfN76MZAN/dt1z3dzcUsimuysco0KeluHgrPdJXkP/XdAURgyO2W9fZWHRtRBiVKzKn8vyOAwlG+w==}
+  /@types/node@20.11.8:
+    resolution: {integrity: sha512-i7omyekpPTNdv4Jb/Rgqg0RU8YqLcNsI12quKSDkRXNfx7Wxdm6HhK1awT3xTgEkgxPn3bvnSpiEAc7a7Lpyow==}
     dependencies:
       undici-types: 5.26.5
 
   /@types/sax@1.2.4:
     resolution: {integrity: sha512-pSAff4IAxJjfAXUG6tFkO7dsSbTmf8CtUpfhhZ5VhkRpC4628tJhh3+V6H1E+/Gs9piSzYKT5yzHO5M4GG9jkw==}
     dependencies:
-      '@types/node': 20.11.5
+      '@types/node': 20.11.8
     dev: false
 
   /@types/unist@2.0.8:
@@ -1067,14 +1067,14 @@ packages:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
     dev: false
 
-  /astro@4.2.1(@types/node@20.11.5):
-    resolution: {integrity: sha512-TcrveW2/lohmljrbTUgcDxajEdF1yK+zBvb7SXroloGix/d4jkegO6GANFgvyy0zprMyajW7qgJEFyhWUX86Vw==}
+  /astro@4.2.6(@types/node@20.11.8):
+    resolution: {integrity: sha512-k5i8pEI2r45JTkoE0I4JyhOH/dZFpjUA4AONbRd9Gr1LtnGOhKHDftiYOrRLUGx91q7BzoW3DOk+h4yZM4yC3g==}
     engines: {node: '>=18.14.1', npm: '>=6.14.0'}
     hasBin: true
     dependencies:
-      '@astrojs/compiler': 2.3.4
+      '@astrojs/compiler': 2.5.1
       '@astrojs/internal-helpers': 0.2.1
-      '@astrojs/markdown-remark': 4.1.0
+      '@astrojs/markdown-remark': 4.2.0
       '@astrojs/telemetry': 3.0.4
       '@babel/core': 7.23.5
       '@babel/generator': 7.23.5
@@ -1092,6 +1092,7 @@ packages:
       clsx: 2.0.0
       common-ancestor-path: 1.0.1
       cookie: 0.6.0
+      cssesc: 3.0.0
       debug: 4.3.4
       deterministic-object-hash: 2.0.2
       devalue: 4.3.2
@@ -1130,7 +1131,7 @@ packages:
       tsconfck: 3.0.0
       unist-util-visit: 5.0.0
       vfile: 6.0.1
-      vite: 5.0.12(@types/node@20.11.5)
+      vite: 5.0.12(@types/node@20.11.8)
       vitefu: 0.2.5(vite@5.0.12)
       which-pm: 2.1.1
       yargs-parser: 21.1.1
@@ -3964,7 +3965,7 @@ packages:
       vfile-message: 4.0.2
     dev: false
 
-  /vite@5.0.12(@types/node@20.11.5):
+  /vite@5.0.12(@types/node@20.11.8):
     resolution: {integrity: sha512-4hsnEkG3q0N4Tzf1+t6NdN9dg/L3BM+q8SWgbSPnJvrgH2kgdyzfVJwbR1ic69/4uMJJ/3dqDZZE5/WwqW8U1w==}
     engines: {node: ^18.0.0 || >=20.0.0}
     hasBin: true
@@ -3992,7 +3993,7 @@ packages:
       terser:
         optional: true
     dependencies:
-      '@types/node': 20.11.5
+      '@types/node': 20.11.8
       esbuild: 0.19.8
       postcss: 8.4.32
       rollup: 4.7.0
@@ -4008,7 +4009,7 @@ packages:
       vite:
         optional: true
     dependencies:
-      vite: 5.0.12(@types/node@20.11.5)
+      vite: 5.0.12(@types/node@20.11.8)
     dev: false
 
   /web-namespaces@2.0.1:
