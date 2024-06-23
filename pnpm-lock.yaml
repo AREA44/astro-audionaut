@@ -18,8 +18,8 @@ importers:
         specifier: ^4.11.0
         version: 4.11.0(@types/node@20.14.8)
       daisyui:
-        specifier: ^4.12.2
-        version: 4.12.2(postcss@8.4.38)
+        specifier: ^4.12.6
+        version: 4.12.6(postcss@8.4.38)
       dayjs:
         specifier: ^1.11.11
         version: 1.11.11
@@ -803,8 +803,8 @@ packages:
     resolution: {integrity: sha512-HIEbTSP7vs1mPq/2P9In6QyFE0Tkpevh0k9a+FkjhD+cwsYm9WRSbn4uMdW9O0yXlNYC3ppxL3gWWPOcvEl57w==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
 
-  daisyui@4.12.2:
-    resolution: {integrity: sha512-ed3EFwPRLN+9+/MYPRB1pYjk6plRCBMobfBdSeB3voAS81KdL2pCKtbwJfUUpDdOnJ0F8T6oRdVX02P6UCD0Hg==}
+  daisyui@4.12.6:
+    resolution: {integrity: sha512-Tz/rvi2ws7+7uh51JgGpsRqnASwI13t6Sz53ePaGkhLzhr4SQI4wwNxSypE8lj/d4gl/+lbHK1phIKUo+d2YNw==}
     engines: {node: '>=16.9.0'}
 
   dayjs@1.11.11:
@@ -2787,7 +2787,7 @@ snapshots:
 
   culori@3.2.0: {}
 
-  daisyui@4.12.2(postcss@8.4.38):
+  daisyui@4.12.6(postcss@8.4.38):
     dependencies:
       css-selector-tokenizer: 0.8.0
       culori: 3.2.0
