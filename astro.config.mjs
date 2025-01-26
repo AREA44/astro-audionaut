@@ -5,5 +5,7 @@ import tailwindcss from "@tailwindcss/vite";
 // https://astro.build/config
 export default defineConfig({
   site: "https://astro-audionaut.vercel.app",
-  integrations: [sitemap(), tailwind()],
+  vite: {
+    plugins: [tailwindcss()],
+  }
 });
