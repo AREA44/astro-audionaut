@@ -7,5 +7,5 @@ export default defineConfig({
   site: "https://astro-audionaut.vercel.app",
   vite: {
     plugins: [tailwindcss()],
-  }
+  },
 });
