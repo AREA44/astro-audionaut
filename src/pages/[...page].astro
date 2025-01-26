@@ -1,17 +1,17 @@
 ---
-import BaseLayout from '@/layouts/BaseLayout.astro'
-import AudioCard from '@/components/AudioCard.astro'
-import AudioPlayer from '@/components/AudioPlayer.astro'
-import Pagination from '@/components/Pagination.astro'
-import { getCollection } from 'astro:content'
-import { siteConfig } from '@/site.config'
+import BaseLayout from "@/layouts/BaseLayout.astro";
+import AudioCard from "@/components/AudioCard.astro";
+import AudioPlayer from "@/components/AudioPlayer.astro";
+import Pagination from "@/components/Pagination.astro";
+import { getCollection } from "astro:content";
+import { siteConfig } from "@/site.config";
 
 export async function getStaticPaths({ paginate }) {
-  const audioCollection = await getCollection('audio')
-  audioCollection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-  return paginate(audioCollection, { pageSize: siteConfig.pageSize })
+  const audioCollection = await getCollection("audio");
+  audioCollection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+  return paginate(audioCollection, { pageSize: siteConfig.pageSize });
 }
-const { page } = Astro.props
+const { page } = Astro.props;
 ---
 
 <BaseLayout

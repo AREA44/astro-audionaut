@@ -1,33 +1,33 @@
 ---
-import PlayIcon from '@/components/icons/playIcon.astro'
-import PauseIcon from '@/components/icons/pauseIcon.astro'
-const { title, cover, desc, audioUrl, id, date, duration } = Astro.props
+import PlayIcon from "@/components/icons/playIcon.astro";
+import PauseIcon from "@/components/icons/pauseIcon.astro";
+const { title, cover, desc, audioUrl, id, date, duration } = Astro.props;
 
-import dayjs from 'dayjs'
-import localizedFormat from 'dayjs/plugin/localizedFormat'
-dayjs.extend(localizedFormat)
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+dayjs.extend(localizedFormat);
 
-let coverImage = cover ? cover : 'cover-images/defaultCover.jpg'
-const displayDate = dayjs(date).format('ll')
+let coverImage = cover ? cover : "cover-images/defaultCover.jpg";
+const displayDate = dayjs(date).format("ll");
 
 function formatTime(secs) {
   if (isNaN(secs) || secs < 0) {
-    const segmentedTime = secs.split(':')
-    return segmentedTime[0] == '00' || segmentedTime[0] == '0' ? secs : null
+    const segmentedTime = secs.split(":");
+    return segmentedTime[0] == "00" || segmentedTime[0] == "0" ? secs : null;
   }
 
-  const hours = Math.floor(secs / 3600)
-  const minutes = Math.floor((secs % 3600) / 60)
-  const seconds = Math.floor(secs % 60)
-  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
-  const formattedseconds = seconds < 10 ? `0${seconds}` : seconds
+  const hours = Math.floor(secs / 3600);
+  const minutes = Math.floor((secs % 3600) / 60);
+  const seconds = Math.floor(secs % 60);
+  const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes;
+  const formattedseconds = seconds < 10 ? `0${seconds}` : seconds;
 
   return hours > 0
     ? `${hours}:${formattedMinutes}:${formattedseconds}`
-    : `${minutes}:${formattedseconds}`
+    : `${minutes}:${formattedseconds}`;
 }
 
-const displayDuration = formatTime(duration)
+const displayDuration = formatTime(duration);
 ---
 
 <div class="audio-card">

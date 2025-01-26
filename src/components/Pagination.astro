@@ -1,19 +1,19 @@
 ---
-const { page } = Astro.props
+const { page } = Astro.props;
 
 function getPagination(current: number, last: number, size: number) {
-  let pagination = [current]
-  const offset = Math.floor(size / 2)
-  const leftOffset = last - current > offset ? offset : last - current
-  const rightOffset = current - 1 > offset ? offset : current - 1
+  let pagination = [current];
+  const offset = Math.floor(size / 2);
+  const leftOffset = last - current > offset ? offset : last - current;
+  const rightOffset = current - 1 > offset ? offset : current - 1;
   for (let i = 1; i < 5 - leftOffset; i++)
-    if (current - i > 0) pagination.unshift(current - i)
+    if (current - i > 0) pagination.unshift(current - i);
   for (let i = 1; i < 5 - rightOffset; i++)
-    if (current + i <= last) pagination.push(current + i)
-  return pagination
+    if (current + i <= last) pagination.push(current + i);
+  return pagination;
 }
 
-const pagination = getPagination(page.currentPage, page.lastPage, 5)
+const pagination = getPagination(page.currentPage, page.lastPage, 5);
 ---
 
 <div class="mt-8 flex w-full justify-center">
