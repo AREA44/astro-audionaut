@@ -4,7 +4,7 @@ import AudioCard from '@/components/AudioCard.astro'
 import AudioPlayer from '@/components/AudioPlayer.astro'
 import Pagination from '@/components/Pagination.astro'
 import { getCollection } from 'astro:content'
-import { siteConfig } from '@/config'
+import { siteConfig } from '@/site.config'
 
 export async function getStaticPaths({ paginate }) {
   const audioCollection = await getCollection('audio')
