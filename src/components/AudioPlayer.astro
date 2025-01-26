@@ -8,7 +8,7 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
 
 <div
   id="audio-player-container"
-  class="fixed bottom-0 z-20 hidden h-16 w-full items-center bg-base-100 px-5 opacity-0 transition-opacity duration-500"
+  class="bg-base-100 fixed bottom-0 z-20 hidden h-16 w-full items-center px-5 opacity-0 transition-opacity duration-500"
 >
   <audio src="" preload="metadata"></audio>
   <span
@@ -23,7 +23,7 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
       <PauseIcon />
     </div>
   </label>
-  <span id="current-time" class="ml-5 mr-2">0:00</span>/
+  <span id="current-time" class="mr-2 ml-5">0:00</span>/
   <span id="duration" class="ml-2">0:00</span>
   <input
     id="seek-slider"
@@ -63,7 +63,7 @@ import AudioMutedIcon from '@/components/icons/audioMutedIcon.astro'
     </button>
     <ul
       tabindex="0"
-      class="menu dropdown-content z-[1] w-52 rounded-box bg-base-100 p-2 shadow"
+      class="menu dropdown-content rounded-box bg-base-100 z-[1] w-52 p-2 shadow"
     >
       <li>
         <a href="#" download id="audio-download-link">
