@@ -10,20 +10,16 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
   id="audio-player-container"
   class="bg-base-100 fixed bottom-0 z-20 hidden h-16 w-full items-center px-5 opacity-0 transition-opacity duration-500"
 >
-  <audio src="" preload="metadata"></audio>
+  <audio id="audio-element" src="" preload="metadata"></audio>
   <span
     id="audio-loading"
     class="loading loading-spinner loading-md hidden min-w-[1.5rem]"></span>
   <label id="audio-control" class="swap hidden">
     <input type="checkbox" id="play-icon" />
-    <div id="play-icon-svg" class="swap-off">
-      <PlayIcon />
-    </div>
-    <div id="pause-icon-svg" class="swap-on">
-      <PauseIcon />
-    </div>
+    <div class="swap-off"><PlayIcon /></div>
+    <div class="swap-on"><PauseIcon /></div>
   </label>
-  <span id="current-time" class="mr-2 ml-5">0:00</span>/
+  <span id="current-time" class="mr-2 ml-5">0:00</span> /
   <span id="duration" class="ml-2">0:00</span>
   <input
     id="seek-slider"
@@ -35,12 +31,8 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
   />
   <label class="swap ml-5">
     <input id="mute-icon" type="checkbox" />
-    <div class="swap-off">
-      <AudioIcon />
-    </div>
-    <div class="swap-on">
-      <AudioMutedIcon />
-    </div>
+    <div class="swap-off"><AudioIcon /></div>
+    <div class="swap-on"><AudioMutedIcon /></div>
   </label>
   <div class="dropdown dropdown-end dropdown-top ml-5 h-6">
     <button tabindex="0">
@@ -68,110 +60,124 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
       <li>
         <a href="#" download id="audio-download-link">
           <DownloadIcon />
-          Download</a
-        >
+          Download
+        </a>
       </li>
     </ul>
   </div>
 </div>
 
 <script>
-  const playIconContainer = document.getElementById('play-icon')
-  const muteIconContainer = document.getElementById('mute-icon')
-  const audioControl = document.getElementById('audio-control')
-  const audioLoading = document.getElementById('audio-loading')
-  const audioDownloadLink = document.getElementById('audio-download-link')
-  const musicPlayer = document.getElementById('audio-player-container')
-  const footer = document.querySelector('.footer > div')
+  document.addEventListener("DOMContentLoaded", () => {
+    const audio = document.getElementById(
+      "audio-element",
+    ) as HTMLAudioElement | null;
+    if (!audio) return; // Ensure the audio element exists
 
-  const audio = document.querySelector('audio')
-  const durationContainer = document.getElementById('duration')
-  const currentTimeContainer = document.getElementById('current-time')
-  const seekSlider = document.getElementById('seek-slider')
+    const playToggle = document.getElementById(
+      "play-icon",
+    ) as HTMLInputElement | null;
+    const muteToggle = document.getElementById(
+      "mute-icon",
+    ) as HTMLInputElement | null;
+    const seekSlider = document.getElementById(
+      "seek-slider",
+    ) as HTMLInputElement | null;
+    const currentTimeDisplay = document.getElementById("current-time");
+    const durationDisplay = document.getElementById("duration");
+    const audioLoading = document.getElementById("audio-loading");
+    const audioControl = document.getElementById("audio-control");
+    const musicPlayer = document.getElementById("audio-player-container");
+    const audioDownloadLink = document.getElementById(
+      "audio-download-link",
+    ) as HTMLAnchorElement | null;
+    const footer = document.querySelector(".footer > div");
+    const playButtons = document.querySelectorAll(".card-pay-buttons");
 
-  const calculateTime = (secs) => {
-    const hours = Math.floor(secs / 3600)
-    const minutes = Math.floor((secs % 3600) / 60)
-    const seconds = Math.floor(secs % 60)
-    const formattedMinutes = minutes < 10 ? `0${minutes}` : minutes
-    const formattedseconds = seconds < 10 ? `0${seconds}` : seconds
+    const formatTime = (secs: number) => {
+      const minutes = Math.floor(secs / 60)
+        .toString()
+        .padStart(2, "0");
+      const seconds = Math.floor(secs % 60)
+        .toString()
+        .padStart(2, "0");
+      return `${minutes}:${seconds}`;
+    };
 
-    return hours > 0
-      ? `${hours}:${formattedMinutes}:${formattedseconds}`
-      : `${minutes}:${formattedseconds}`
-  }
+    audio.addEventListener("loadedmetadata", () => {
+      if (durationDisplay && seekSlider) {
+        durationDisplay.textContent = formatTime(audio.duration);
+        seekSlider.max = Math.floor(audio.duration).toString();
+      }
+      audioLoading?.classList.add("hidden");
+      audioControl?.classList.remove("hidden");
+    });
 
-  const displayDuration = () => {
-    durationContainer.textContent = calculateTime(audio.duration)
-  }
+    playToggle?.addEventListener("change", () => {
+      if (!audio) return;
+      audio[playToggle.checked ? "play" : "pause"]();
+    });
 
-  if (audio.readyState > 0) {
-    displayDuration()
-    audioLoading?.classList.add('hidden')
-    audioControl?.classList.remove('hidden')
-  } else {
-    audio.addEventListener('loadedmetadata', () => {
-      displayDuration()
-      seekSlider?.setAttribute('max', audio.duration)
-      audioLoading?.classList.add('hidden')
-      audioControl?.classList.remove('hidden')
-    })
-  }
+    muteToggle?.addEventListener("change", () => {
+      if (audio) audio.muted = muteToggle.checked;
+    });
 
-  muteIconContainer.addEventListener('click', () => {
-    audio.muted = muteIconContainer.checked
-  })
+    seekSlider?.addEventListener("input", () => {
+      if (currentTimeDisplay && seekSlider) {
+        currentTimeDisplay.textContent = formatTime(parseInt(seekSlider.value));
+      }
+    });
 
-  playIconContainer.onchange = function () {
-    if (playIconContainer.checked) {
-      audio.play()
-    } else {
-      audio.pause()
+    seekSlider?.addEventListener("change", () => {
+      if (audio && seekSlider) {
+        audio.currentTime = parseInt(seekSlider.value);
+      }
+    });
+
+    audio.addEventListener("timeupdate", () => {
+      if (seekSlider && currentTimeDisplay) {
+        seekSlider.value = Math.floor(audio.currentTime).toString();
+        currentTimeDisplay.textContent = formatTime(audio.currentTime);
+      }
+    });
+
+    playButtons.forEach((btn) => {
+      btn.addEventListener("click", () => {
+        if (!(btn instanceof HTMLElement)) return;
+        const audioUrl = btn.dataset.audioUrl;
+        if (!audioUrl || !audio) return;
+
+        if (audio.src !== audioUrl) {
+          musicPlayer?.classList.remove("hidden", "opacity-0");
+          musicPlayer?.classList.add("flex");
+          footer?.classList.add("pb-24");
+
+          setTimeout(() => musicPlayer?.classList.remove("opacity-0"), 100);
+          audioLoading?.classList.remove("hidden");
+          audioControl?.classList.add("hidden");
+
+          if (currentTimeDisplay && durationDisplay) {
+            currentTimeDisplay.textContent = "0:00";
+            durationDisplay.textContent = "0:00";
+          }
+
+          audio.src = audioUrl;
+          if (audioDownloadLink) audioDownloadLink.href = audioUrl;
+          disableOtherButtons(btn.id);
+          if (playToggle) playToggle.checked = true;
+          audio.play();
+        } else {
+          playToggle?.click();
+        }
+      });
+    });
+
+    function disableOtherButtons(id: string) {
+      playButtons.forEach((btn) => {
+        if (btn instanceof HTMLInputElement && btn.id !== id) {
+          btn.checked = false;
+        }
+      });
     }
-  }
-
-  seekSlider.addEventListener('input', () => {
-    currentTimeContainer.textContent = calculateTime(seekSlider.value)
-  })
-
-  seekSlider.addEventListener('change', () => {
-    audio.currentTime = seekSlider.value
-  })
-
-  audio.addEventListener('timeupdate', () => {
-    seekSlider.value = Math.floor(audio.currentTime)
-    currentTimeContainer.textContent = calculateTime(seekSlider.value)
-  })
-
-  const playButtons = document.querySelectorAll('.card-pay-buttons')
-
-  playButtons.forEach(function (btn) {
-    btn.addEventListener('click', () => {
-      if (!audio.src.includes(btn.dataset.audioUrl)) {
-        musicPlayer?.classList.remove('hidden')
-        musicPlayer?.classList.add('flex')
-        footer?.classList.add('pb-24')
-        setTimeout(() => musicPlayer?.classList.remove('opacity-0'), 100)
-        audioLoading?.classList.remove('hidden')
-        audioControl?.classList.add('hidden')
-        durationContainer.textContent = '0:00'
-        currentTimeContainer.textContent = '0:00'
-        audio.src = btn.dataset.audioUrl
-        audioDownloadLink.href = btn.dataset.audioUrl
-        disableOthersPlayButtons(btn.id, playButtons)
-        playIconContainer.checked = true
-        audio.play()
-      } else {
-        playIconContainer?.click()
-      }
-    })
-  })
-
-  function disableOthersPlayButtons(id, playButtons) {
-    playButtons.forEach(function (btn) {
-      if (btn.id != id) {
-        btn.checked = false
-      }
-    })
-  }
+  });
 </script>

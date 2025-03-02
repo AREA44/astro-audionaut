@@ -2,7 +2,7 @@
 const { page } = Astro.props;
 
 function getPagination(current: number, last: number, size: number) {
-  let pagination = [current];
+  const pagination = [current];
   const offset = Math.floor(size / 2);
   const leftOffset = last - current > offset ? offset : last - current;
   const rightOffset = current - 1 > offset ? offset : current - 1;
@@ -21,11 +21,11 @@ const pagination = getPagination(page.currentPage, page.lastPage, 5);
     {
       pagination.map((item) => (
         <a
-          href={item == 1 ? '/' : `/${item}`}
+          href={item == 1 ? "/" : `/${item}`}
           class={
             item == page.currentPage
-              ? 'btn join-item btn-active'
-              : 'btn join-item bg-base-100'
+              ? "btn join-item btn-active"
+              : "btn join-item bg-base-100"
           }
         >
           {item}
