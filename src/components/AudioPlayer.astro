@@ -72,8 +72,7 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
     const audio = document.getElementById(
       "audio-element",
     ) as HTMLAudioElement | null;
-    if (!audio) return; // Ensure the audio element exists
-
+    if (!audio) return;
     const playToggle = document.getElementById(
       "play-icon",
     ) as HTMLInputElement | null;
@@ -114,24 +113,33 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
     });
 
     playToggle?.addEventListener("change", () => {
-      if (!audio) return;
-      audio[playToggle.checked ? "play" : "pause"]();
+      if (audio.paused) {
+        audio.play();
+      } else {
+        audio.pause();
+      }
+    });
+
+    audio.addEventListener("play", () => {
+      if (playToggle) playToggle.checked = true;
+    });
+
+    audio.addEventListener("pause", () => {
+      if (playToggle) playToggle.checked = false;
     });
 
     muteToggle?.addEventListener("change", () => {
-      if (audio) audio.muted = muteToggle.checked;
+      audio.muted = muteToggle.checked;
     });
 
     seekSlider?.addEventListener("input", () => {
-      if (currentTimeDisplay && seekSlider) {
+      if (currentTimeDisplay) {
         currentTimeDisplay.textContent = formatTime(parseInt(seekSlider.value));
       }
     });
 
     seekSlider?.addEventListener("change", () => {
-      if (audio && seekSlider) {
-        audio.currentTime = parseInt(seekSlider.value);
-      }
+      audio.currentTime = parseInt(seekSlider.value);
     });
 
     audio.addEventListener("timeupdate", () => {
@@ -145,30 +153,32 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
       btn.addEventListener("click", () => {
         if (!(btn instanceof HTMLElement)) return;
         const audioUrl = btn.dataset.audioUrl;
-        if (!audioUrl || !audio) return;
-
-        if (audio.src !== audioUrl) {
-          musicPlayer?.classList.remove("hidden", "opacity-0");
-          musicPlayer?.classList.add("flex");
-          footer?.classList.add("pb-24");
-
-          setTimeout(() => musicPlayer?.classList.remove("opacity-0"), 100);
-          audioLoading?.classList.remove("hidden");
-          audioControl?.classList.add("hidden");
-
-          if (currentTimeDisplay && durationDisplay) {
-            currentTimeDisplay.textContent = "0:00";
-            durationDisplay.textContent = "0:00";
-          }
-
-          audio.src = audioUrl;
-          if (audioDownloadLink) audioDownloadLink.href = audioUrl;
-          disableOtherButtons(btn.id);
-          if (playToggle) playToggle.checked = true;
-          audio.play();
-        } else {
+        if (!audioUrl || audio.src === audioUrl) {
           playToggle?.click();
+          return;
         }
+
+        // Show player UI
+        musicPlayer?.classList.remove("hidden", "opacity-0");
+        musicPlayer?.classList.add("flex");
+        footer?.classList.add("pb-24");
+
+        setTimeout(() => musicPlayer?.classList.remove("opacity-0"), 100);
+        audioLoading?.classList.remove("hidden");
+        audioControl?.classList.add("hidden");
+
+        // Reset UI
+        if (currentTimeDisplay && durationDisplay) {
+          currentTimeDisplay.textContent = "0:00";
+          durationDisplay.textContent = "0:00";
+        }
+
+        audio.src = audioUrl;
+        if (audioDownloadLink) audioDownloadLink.href = audioUrl;
+
+        disableOtherButtons(btn.id);
+        if (playToggle) playToggle.checked = true;
+        audio.play();
       });
     });
 
@@ -179,5 +189,21 @@ import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
         }
       });
     }
+
+    // Keyboard shortcuts
+    document.addEventListener("keydown", (event) => {
+      if (event.code === "Space") {
+        event.preventDefault();
+        playToggle?.click();
+      }
+      if (event.code === "ArrowRight") {
+        event.preventDefault();
+        audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+      }
+      if (event.code === "ArrowLeft") {
+        event.preventDefault();
+        audio.currentTime = Math.max(0, audio.currentTime - 5);
+      }
+    });
   });
 </script>
