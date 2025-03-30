@@ -12,16 +12,16 @@
     "format": "biome format --write ."
   },
   "dependencies": {
-    "@tailwindcss/vite": "^4.0.15",
-    "astro": "^5.5.4",
+    "@tailwindcss/vite": "^4.0.17",
+    "astro": "^5.5.5",
     "daisyui": "^5.0.9",
     "dayjs": "^1.11.13",
     "sharp": "^0.33.5",
-    "tailwindcss": "^4.0.15"
+    "tailwindcss": "^4.0.17"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.13.11"
+    "@types/node": "^22.13.14"
   },
-  "packageManager": "pnpm@10.6.5"
+  "packageManager": "pnpm@10.7.0"
 }
