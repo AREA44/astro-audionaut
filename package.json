@@ -13,15 +13,15 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.4",
-    "astro": "^5.7.4",
-    "daisyui": "^5.0.27",
+    "astro": "^5.7.5",
+    "daisyui": "^5.0.28",
     "dayjs": "^1.11.13",
     "sharp": "^0.34.1",
     "tailwindcss": "^4.1.4"
   },
   "devDependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@types/node": "^22.14.1"
+    "@types/node": "^22.15.2"
   },
-  "packageManager": "pnpm@10.8.1"
+  "packageManager": "pnpm@10.9.0"
 }
