@@ -20,7 +20,7 @@
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.9.4",
+    "@biomejs/biome": "^2.0.0",
     "@types/node": "^22.15.31"
   },
   "packageManager": "pnpm@10.12.1"
