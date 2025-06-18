@@ -20,6 +20,7 @@
     "tailwindcss": "^4.1.10"
   },
   "devDependencies": {
+    "@area44/biome-config": "^2.0.1",
     "@biomejs/biome": "^2.0.0",
     "@types/node": "^22.15.31"
   },
