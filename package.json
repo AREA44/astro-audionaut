@@ -23,6 +23,5 @@
     "@area44/biome-config": "^2.2.2",
     "@biomejs/biome": "^2.0.6",
     "@types/node": "^22.16.0"
-  },
-  "packageManager": "pnpm@10.12.4"
+  }
 }
