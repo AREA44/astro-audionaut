@@ -1,10 +1,14 @@
-name: autofix.ci
-
+name: GitHub Pages
 on:
   push:
     branches: ['main']
   pull_request:
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
-  autofix:
-    uses: area44/actions/.github/workflows/autofix.yml@v0.4.1
+  astro:
+    uses: area44/actions/.github/workflows/astro.yml@v0.4.1
