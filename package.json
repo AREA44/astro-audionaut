@@ -16,12 +16,12 @@
     "astro": "^5.11.0",
     "daisyui": "^5.0.46",
     "dayjs": "^1.11.13",
-    "sharp": "^0.34.2",
+    "sharp": "^0.34.3",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
     "@area44/biome-config": "^2.2.2",
-    "@biomejs/biome": "^2.0.6",
-    "@types/node": "^22.16.0"
+    "@biomejs/biome": "^2.1.1",
+    "@types/node": "^22.16.3"
   }
 }
