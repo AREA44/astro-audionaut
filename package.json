@@ -11,7 +11,7 @@
     "start": "astro dev",
     "format": "biome format --write .",
     "lint": "biome lint --write .",
-    "check": "biome check --write .",
+    "check": "biome check --write ."
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
