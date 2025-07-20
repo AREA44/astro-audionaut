@@ -9,19 +9,21 @@
     "dev": "astro dev",
     "preview": "astro preview",
     "start": "astro dev",
-    "format": "biome format --write ."
+    "format": "biome format --write .",
+    "lint": "biome lint --write .",
+    "check": "biome check --write ."
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "astro": "^5.11.0",
+    "astro": "^5.12.0",
     "daisyui": "^5.0.46",
     "dayjs": "^1.11.13",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.11"
   },
   "devDependencies": {
-    "@area44/biome-config": "^2.2.2",
-    "@biomejs/biome": "^2.1.1",
-    "@types/node": "^22.16.3"
+    "@area44/biome-config": "^2.2.5",
+    "@biomejs/biome": "^2.1.2",
+    "@types/node": "^22.16.5"
   }
 }
