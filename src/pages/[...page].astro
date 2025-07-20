@@ -1,9 +1,9 @@
 ---
-import BaseLayout from "@/layouts/BaseLayout.astro";
+import { getCollection } from "astro:content";
 import AudioCard from "@/components/AudioCard.astro";
 import AudioPlayer from "@/components/AudioPlayer.astro";
 import Pagination from "@/components/Pagination.astro";
-import { getCollection } from "astro:content";
+import BaseLayout from "@/layouts/BaseLayout.astro";
 import { siteConfig } from "@/site.config";
 
 export async function getStaticPaths({ paginate }) {
