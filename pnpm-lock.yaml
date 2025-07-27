@@ -12,11 +12,11 @@ importers:
         specifier: ^4.1.11
         version: 4.1.11(vite@6.3.4(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1))
       astro:
-        specifier: ^5.12.0
-        version: 5.12.0(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.34.9)(typescript@5.5.4)
+        specifier: ^5.12.3
+        version: 5.12.3(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.34.9)(typescript@5.5.4)
       daisyui:
-        specifier: ^5.0.46
-        version: 5.0.46
+        specifier: ^5.0.47
+        version: 5.0.47
       dayjs:
         specifier: ^1.11.13
         version: 1.11.13
@@ -823,8 +823,8 @@ packages:
   array-iterate@2.0.1:
     resolution: {integrity: sha512-I1jXZMjAgCMmxT4qxXfPXa6SthSoE8h6gkSI9BGGNv8mP8G/v0blc+qFnZu6K42vTOiuME596QaLO0TP3Lk0xg==}
 
-  astro@5.12.0:
-    resolution: {integrity: sha512-Oov5JsMFHuUmuO+Nx6plfv3nQNK1Xl/8CgLvR8lBhZTjYnraxhuPX5COVAzbom+YLgwaDfK7KBd8zOEopRf9mg==}
+  astro@5.12.3:
+    resolution: {integrity: sha512-fU1hNPMkccm+FuonGsY5DFkC2QyuLCju++8L2ubzBtYBDBf6bmfgmVM7A2dK+Hl+ZJCUNgepsClhBpczj+2LRw==}
     engines: {node: 18.20.8 || ^20.3.0 || >=22.0.0, npm: '>=9.6.5', pnpm: '>=7.1.0'}
     hasBin: true
 
@@ -937,8 +937,8 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  daisyui@5.0.46:
-    resolution: {integrity: sha512-vMDZK1tI/bOb2Mc3Mk5WpquBG3ZqBz1YKZ0xDlvpOvey60dOS4/5Qhdowq1HndbQl7PgDLDYysxAjjUjwR7/eQ==}
+  daisyui@5.0.47:
+    resolution: {integrity: sha512-RuYjjVKpodDoOYAHIvG6qC3BeRxhlyj4JCO+6aV0VzK+i3RWD7cmICh0m5+Xfr5938mV0Mk7FUOQ00msz8H8dw==}
 
   dayjs@1.11.13:
     resolution: {integrity: sha512-oaMBel6gjolK862uaPQOVTA7q3TZhuSvuMQAAglQDOWYO9A91IrAOUJEyKVlqJlHE0vq5p5UXxzdPfMH/x6xNg==}
@@ -2479,7 +2479,7 @@ snapshots:
 
   array-iterate@2.0.1: {}
 
-  astro@5.12.0(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.34.9)(typescript@5.5.4):
+  astro@5.12.3(@types/node@22.16.5)(jiti@2.4.2)(lightningcss@1.30.1)(rollup@4.34.9)(typescript@5.5.4):
     dependencies:
       '@astrojs/compiler': 2.12.2
       '@astrojs/internal-helpers': 0.6.1
@@ -2672,7 +2672,7 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  daisyui@5.0.46: {}
+  daisyui@5.0.47: {}
 
   dayjs@1.11.13: {}
 
