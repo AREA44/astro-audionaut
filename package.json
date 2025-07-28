@@ -16,7 +16,7 @@
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
     "astro": "^5.12.3",
-    "daisyui": "^5.0.47",
+    "daisyui": "^5.0.48",
     "dayjs": "^1.11.13",
     "sharp": "^0.34.3",
     "tailwindcss": "^4.1.11"
