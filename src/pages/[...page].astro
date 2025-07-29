@@ -1,17 +1,26 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import AudioCard from "@/components/AudioCard.astro";
 import AudioPlayer from "@/components/AudioPlayer.astro";
 import Pagination from "@/components/Pagination.astro";
 import BaseLayout from "@/layouts/BaseLayout.astro";
 import { siteConfig } from "@/site.config";
 
+// getStaticPaths function to paginate collection
 export async function getStaticPaths({ paginate }) {
   const audioCollection = await getCollection("audio");
+
+  // Sort newest first
   audioCollection.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
   return paginate(audioCollection, { pageSize: siteConfig.pageSize });
 }
+
+// Props from Astro
 const { page } = Astro.props;
+
+// Cast page.data to correct type
+const entries = page.data as CollectionEntry<"audio">[];
 ---
 
 <BaseLayout
@@ -21,7 +30,7 @@ const { page } = Astro.props;
 >
   <div class="card bg-base-100 mt-12 min-w-full p-3 pb-3 shadow-md">
     {
-      page.data.map((audio: any, index: number) => (
+      entries.map((audio, index) => (
         <AudioCard
           title={audio.data.title}
           cover={audio.data.cover}
@@ -29,11 +38,12 @@ const { page } = Astro.props;
           audioUrl={audio.data.audioUrl}
           date={audio.data.date}
           duration={audio.data.duration}
-          id={'card-' + index}
+          id={"card-" + index}
         />
       ))
     }
   </div>
+
   <Pagination page={page} />
 </BaseLayout>
 

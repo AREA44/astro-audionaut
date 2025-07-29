@@ -1,36 +1,49 @@
 ---
 const { page } = Astro.props;
 
-function getPagination(current: number, last: number, size: number) {
-  const pagination = [current];
-  const offset = Math.floor(size / 2);
-  const leftOffset = last - current > offset ? offset : last - current;
-  const rightOffset = current - 1 > offset ? offset : current - 1;
-  for (let i = 1; i < 5 - leftOffset; i++)
-    if (current - i > 0) pagination.unshift(current - i);
-  for (let i = 1; i < 5 - rightOffset; i++)
-    if (current + i <= last) pagination.push(current + i);
-  return pagination;
+function getPagination(current: number, last: number, size: number): number[] {
+  const range = [];
+  const half = Math.floor(size / 2);
+  let start = Math.max(1, current - half);
+  let end = Math.min(last, current + half);
+
+  // Adjust range if at the beginning or end
+  if (end - start + 1 < size) {
+    if (start === 1) {
+      end = Math.min(last, start + size - 1);
+    } else if (end === last) {
+      start = Math.max(1, end - size + 1);
+    }
+  }
+
+  for (let i = start; i <= end; i++) {
+    range.push(i);
+  }
+
+  return range;
 }
 
 const pagination = getPagination(page.currentPage, page.lastPage, 5);
 ---
 
-<div class="mt-8 flex w-full justify-center">
-  <div class="join bg-base-100 shadow-md">
-    {
-      pagination.map((item) => (
-        <a
-          href={item == 1 ? "/" : `/${item}`}
-          class={
-            item == page.currentPage
-              ? "btn join-item btn-active"
-              : "btn join-item bg-base-100"
-          }
-        >
-          {item}
-        </a>
-      ))
-    }
-  </div>
-</div>
+{
+  page.lastPage > 1 && (
+    <nav class="mt-8 flex w-full justify-center" aria-label="Pagination">
+      <div class="join bg-base-100 shadow-md">
+        {pagination.map((item) => (
+          <a
+            href={item === 1 ? "/" : `/${item}`}
+            class={
+              item === page.currentPage
+                ? "btn join-item btn-active"
+                : "btn join-item bg-base-100"
+            }
+            aria-current={item === page.currentPage ? "page" : undefined}
+          >
+            {item}
+          </a>
+        ))}
+      </div>
+    </nav>
+  )
+}

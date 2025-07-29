@@ -1,6 +1,6 @@
 {
   "name": "@area44/astro-audionaut",
-  "version": "25.07.29",
+  "version": "25.07.30",
   "private": true,
   "description": "An audio player built with Astro.",
   "author": "AREA44",

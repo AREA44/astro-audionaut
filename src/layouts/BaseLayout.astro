@@ -2,18 +2,24 @@
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import HeadSEO from "@/components/HeadSEO.astro";
+
+const {
+  title = "Astro Audionaut",
+  description = "Created by AREA44",
+  ogImage,
+} = Astro.props;
 ---
 
 <!doctype html>
 <html lang="en" data-theme="light">
   <head>
-    <HeadSEO />
+    <HeadSEO title={title} description={description} ogImage={ogImage} />
   </head>
   <body class="bg-base-200 h-full">
     <div class="container mx-auto lg:max-w-[960px]">
       <div class="w-full md:flex md:justify-center">
         <main class="-mt-5 w-full">
-          <Header title="Astro Audionaut" subtitle="Created by AREA44" />
+          <Header title={title} subtitle={description} />
           <slot />
         </main>
       </div>
