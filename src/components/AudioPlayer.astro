@@ -115,6 +115,14 @@
       return `${minutes}:${seconds}`;
     };
 
+    function normalizeUrl(url) {
+      try {
+        return new URL(url, location.origin).href;
+      } catch {
+        return url;
+      }
+    }
+
     audio.addEventListener("loadedmetadata", () => {
       durationDisplay.textContent = formatTime(audio.duration);
       seekSlider.max = Math.floor(audio.duration).toString();
@@ -123,7 +131,6 @@
     });
 
     audio.addEventListener("error", () => {
-      // alert("Audio failed to load. Please check the path or file.");
       audioLoading.classList.add("hidden");
       audioControl.classList.add("hidden");
     });
@@ -173,9 +180,8 @@
         const encodedUrl = rawUrl.startsWith("http")
           ? rawUrl
           : encodeURI(rawUrl);
-        const fullUrl = new URL(encodedUrl, location.origin).href;
-
-        const isSameAudio = audio.src === fullUrl;
+        const fullUrl = normalizeUrl(encodedUrl);
+        const isSameAudio = normalizeUrl(audio.src) === fullUrl;
 
         if (isSameAudio) {
           if (audio.paused) {
@@ -186,7 +192,7 @@
           return;
         }
 
-        // Load new audio
+        // Load and play new audio
         musicPlayer.classList.remove("hidden", "opacity-0");
         musicPlayer.classList.add("flex");
         footer?.classList.add("pb-24");
@@ -213,8 +219,8 @@
         const btnUrl = btn.dataset.audioUrl;
         if (!btnUrl) return;
 
-        const fullUrl = new URL(encodeURI(btnUrl), location.origin).href;
-        const isSameAudio = audio.src === fullUrl;
+        const fullUrl = normalizeUrl(btnUrl);
+        const isSameAudio = normalizeUrl(audio.src) === fullUrl;
         const isActive = btn.id === activeId;
 
         const shouldBeChecked =
