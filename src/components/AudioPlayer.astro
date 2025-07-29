@@ -96,8 +96,6 @@
 <script>
   document.addEventListener("DOMContentLoaded", () => {
     const audio = document.getElementById("audio-element");
-    if (!audio) return;
-
     const playToggle = document.getElementById("play-icon");
     const muteToggle = document.getElementById("mute-icon");
     const seekSlider = document.getElementById("seek-slider");
@@ -125,7 +123,7 @@
     });
 
     audio.addEventListener("error", () => {
-      alert("❌ Audio failed to load. Please check the path or server.");
+      alert("Audio failed to load. Please check the path or file.");
       audioLoading.classList.add("hidden");
       audioControl.classList.add("hidden");
     });
@@ -175,12 +173,9 @@
         const encodedUrl = rawUrl.startsWith("http")
           ? rawUrl
           : encodeURI(rawUrl);
-        const currentSrc = decodeURIComponent(
-          audio.src.replace(location.origin, ""),
-        );
-        const targetSrc = decodeURIComponent(encodedUrl);
+        const fullUrl = new URL(encodedUrl, location.origin).href;
 
-        const isSameAudio = currentSrc === targetSrc;
+        const isSameAudio = audio.src === fullUrl;
 
         if (isSameAudio) {
           if (audio.paused) {
@@ -191,7 +186,7 @@
           return;
         }
 
-        // New audio
+        // Load new audio
         musicPlayer.classList.remove("hidden", "opacity-0");
         musicPlayer.classList.add("flex");
         footer?.classList.add("pb-24");
@@ -203,7 +198,7 @@
         currentTimeDisplay.textContent = "0:00";
         durationDisplay.textContent = "0:00";
 
-        audio.src = encodedUrl;
+        audio.src = fullUrl;
         audio.load();
         playToggle.checked = true;
         disableOtherButtons(btn.id);
@@ -215,10 +210,13 @@
       playButtons.forEach((btn) => {
         if (!(btn instanceof HTMLInputElement)) return;
 
-        const isSameAudio = decodeURIComponent(audio.src).includes(
-          decodeURIComponent(btn.dataset.audioUrl),
-        );
+        const btnUrl = btn.dataset.audioUrl;
+        if (!btnUrl) return;
+
+        const fullUrl = new URL(encodeURI(btnUrl), location.origin).href;
+        const isSameAudio = audio.src === fullUrl;
         const isActive = btn.id === activeId;
+
         const shouldBeChecked =
           !audio.paused && isSameAudio && (isActive || activeId === null);
         btn.checked = shouldBeChecked;
