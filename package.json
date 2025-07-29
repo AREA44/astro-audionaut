@@ -2,7 +2,7 @@
   "name": "@area44/astro-audionaut",
   "version": "25.01.27",
   "private": true,
-  "description": "An audio player built with Astro",
+  "description": "An audio player built with Astro.",
   "author": "AREA44",
   "scripts": {
     "build": "astro build",
