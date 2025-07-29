@@ -1,26 +1,49 @@
----
-import AudioIcon from "@/components/icons/audioIcon.astro";
-import AudioMutedIcon from "@/components/icons/audioMutedIcon.astro";
-import DownloadIcon from "@/components/icons/downloadIcon.astro";
-import PauseIcon from "@/components/icons/pauseIcon.astro";
-import PlayIcon from "@/components/icons/playIcon.astro";
----
-
 <div
   id="audio-player-container"
-  class="bg-base-100 fixed bottom-0 justify-center z-20 hidden h-16 w-full items-center px-5 opacity-0 transition-opacity duration-500"
+  class="bg-base-100 fixed bottom-0 z-20 hidden h-16 w-full items-center justify-center px-5 opacity-0 transition-opacity duration-500"
 >
   <audio id="audio-element" src="" preload="metadata"></audio>
+
   <span
     id="audio-loading"
     class="loading loading-spinner loading-md hidden min-w-[1.5rem]"></span>
-  <label id="audio-control" class="swap hidden">
-    <input type="checkbox" id="play-icon" />
-    <div class="swap-off"><PlayIcon /></div>
-    <div class="swap-on"><PauseIcon /></div>
+
+  <label id="audio-control" class="swap md:mx-2 hidden shrink-0">
+    <input type="checkbox" id="play-icon" aria-label="Play and pause" />
+    <div class="swap-off">
+      <!-- Play icon -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <polygon
+          points="5 3 19 12 5 21 5 3"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"></polygon>
+      </svg>
+    </div>
+    <div class="swap-on">
+      <!-- Pause icon -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <rect x="6" y="4" width="4" height="16" stroke-width="2"></rect>
+        <rect x="14" y="4" width="4" height="16" stroke-width="2"></rect>
+      </svg>
+    </div>
   </label>
-  <span id="current-time" class="mr-2 ml-5">0:00</span> /
+
+  <span id="current-time" class="mr-2 ml-2">0:00</span> /
   <span id="duration" class="ml-2">0:00</span>
+
   <input
     id="seek-slider"
     type="range"
@@ -29,74 +52,63 @@ import PlayIcon from "@/components/icons/playIcon.astro";
     value="0"
     class="range range-xs mx-5"
   />
-  <label class="swap ml-5">
-    <input id="mute-icon" type="checkbox" />
-    <div class="swap-off"><AudioIcon /></div>
-    <div class="swap-on"><AudioMutedIcon /></div>
-  </label>
-  <div class="dropdown dropdown-end dropdown-top ml-5 h-6">
-    <button tabindex="0">
+
+  <label class="swap ml-3">
+    <input id="mute-icon" type="checkbox" aria-label="Mute and Unmute" />
+    <div class="swap-off">
+      <!-- Volume On icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
         height="24"
-        viewBox="0 0 24 24"
-        stroke-width="2"
-        stroke="currentColor"
         fill="none"
-        stroke-linecap="round"
-        stroke-linejoin="round"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
       >
-        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-        <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-        <path d="M12 19m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
-        <path d="M12 5m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0"></path>
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M11 5l-6 6H2v2h3l6 6V5zm8.5 3.5a5 5 0 010 7M17 9a2.5 2.5 0 010 3"
+        ></path>
       </svg>
-    </button>
-    <ul
-      tabindex="0"
-      class="menu dropdown-content rounded-box bg-base-100 z-[1] w-52 p-2 shadow"
-    >
-      <li>
-        <a href="#" download id="audio-download-link">
-          <DownloadIcon />
-          Download
-        </a>
-      </li>
-    </ul>
-  </div>
+    </div>
+    <div class="swap-on">
+      <!-- Volume Off icon -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M9 9l6 6m0-6l-6 6M11 5l-6 6H2v2h3l6 6V5z"></path>
+      </svg>
+    </div>
+  </label>
 </div>
 
 <script>
   document.addEventListener("DOMContentLoaded", () => {
-    const audio = document.getElementById(
-      "audio-element",
-    ) as HTMLAudioElement | null;
-    if (!audio) return;
-    const playToggle = document.getElementById(
-      "play-icon",
-    ) as HTMLInputElement | null;
-    const muteToggle = document.getElementById(
-      "mute-icon",
-    ) as HTMLInputElement | null;
-    const seekSlider = document.getElementById(
-      "seek-slider",
-    ) as HTMLInputElement | null;
+    const audio = document.getElementById("audio-element");
+    const playToggle = document.getElementById("play-icon");
+    const muteToggle = document.getElementById("mute-icon");
+    const seekSlider = document.getElementById("seek-slider");
     const currentTimeDisplay = document.getElementById("current-time");
     const durationDisplay = document.getElementById("duration");
     const audioLoading = document.getElementById("audio-loading");
     const audioControl = document.getElementById("audio-control");
     const musicPlayer = document.getElementById("audio-player-container");
-    const audioDownloadLink = document.getElementById(
-      "audio-download-link",
-    ) as HTMLAnchorElement | null;
     const footer = document.querySelector(".footer > div");
     const playButtons = document.querySelectorAll(".card-pay-buttons");
 
-    const formatTime = (secs: number) => {
-      const minutes = Math.floor(secs / 60)
-        .toString()
-        .padStart(2, "0");
+    const formatTime = (secs) => {
+      const minutes = Math.floor(secs / 60);
       const seconds = Math.floor(secs % 60)
         .toString()
         .padStart(2, "0");
@@ -104,12 +116,16 @@ import PlayIcon from "@/components/icons/playIcon.astro";
     };
 
     audio.addEventListener("loadedmetadata", () => {
-      if (durationDisplay && seekSlider) {
-        durationDisplay.textContent = formatTime(audio.duration);
-        seekSlider.max = Math.floor(audio.duration).toString();
-      }
-      audioLoading?.classList.add("hidden");
-      audioControl?.classList.remove("hidden");
+      durationDisplay.textContent = formatTime(audio.duration);
+      seekSlider.max = Math.floor(audio.duration).toString();
+      audioLoading.classList.add("hidden");
+      audioControl.classList.remove("hidden");
+    });
+
+    audio.addEventListener("error", () => {
+      alert("Audio failed to load. Please check the path or file.");
+      audioLoading.classList.add("hidden");
+      audioControl.classList.add("hidden");
     });
 
     playToggle?.addEventListener("change", () => {
@@ -121,11 +137,13 @@ import PlayIcon from "@/components/icons/playIcon.astro";
     });
 
     audio.addEventListener("play", () => {
-      if (playToggle) playToggle.checked = true;
+      playToggle.checked = true;
+      disableOtherButtons(null);
     });
 
     audio.addEventListener("pause", () => {
-      if (playToggle) playToggle.checked = false;
+      playToggle.checked = false;
+      disableOtherButtons(null);
     });
 
     muteToggle?.addEventListener("change", () => {
@@ -133,9 +151,7 @@ import PlayIcon from "@/components/icons/playIcon.astro";
     });
 
     seekSlider?.addEventListener("input", () => {
-      if (currentTimeDisplay) {
-        currentTimeDisplay.textContent = formatTime(parseInt(seekSlider.value));
-      }
+      currentTimeDisplay.textContent = formatTime(parseInt(seekSlider.value));
     });
 
     seekSlider?.addEventListener("change", () => {
@@ -143,66 +159,92 @@ import PlayIcon from "@/components/icons/playIcon.astro";
     });
 
     audio.addEventListener("timeupdate", () => {
-      if (seekSlider && currentTimeDisplay) {
-        seekSlider.value = Math.floor(audio.currentTime).toString();
-        currentTimeDisplay.textContent = formatTime(audio.currentTime);
-      }
+      seekSlider.value = Math.floor(audio.currentTime).toString();
+      currentTimeDisplay.textContent = formatTime(audio.currentTime);
     });
 
     playButtons.forEach((btn) => {
       btn.addEventListener("click", () => {
-        if (!(btn instanceof HTMLElement)) return;
-        const audioUrl = btn.dataset.audioUrl;
-        if (!audioUrl || audio.src === audioUrl) {
-          playToggle?.click();
+        if (!(btn instanceof HTMLInputElement)) return;
+
+        const rawUrl = btn.dataset.audioUrl;
+        if (!rawUrl) return;
+
+        const encodedUrl = rawUrl.startsWith("http")
+          ? rawUrl
+          : encodeURI(rawUrl);
+        const fullUrl = new URL(encodedUrl, location.origin).href;
+
+        const isSameAudio = audio.src === fullUrl;
+
+        if (isSameAudio) {
+          if (audio.paused) {
+            audio.play();
+          } else {
+            audio.pause();
+          }
           return;
         }
 
-        // Show player UI
-        musicPlayer?.classList.remove("hidden", "opacity-0");
-        musicPlayer?.classList.add("flex");
+        // Load new audio
+        musicPlayer.classList.remove("hidden", "opacity-0");
+        musicPlayer.classList.add("flex");
         footer?.classList.add("pb-24");
 
-        setTimeout(() => musicPlayer?.classList.remove("opacity-0"), 100);
-        audioLoading?.classList.remove("hidden");
-        audioControl?.classList.add("hidden");
+        setTimeout(() => musicPlayer.classList.remove("opacity-0"), 100);
+        audioLoading.classList.remove("hidden");
+        audioControl.classList.add("hidden");
 
-        // Reset UI
-        if (currentTimeDisplay && durationDisplay) {
-          currentTimeDisplay.textContent = "0:00";
-          durationDisplay.textContent = "0:00";
-        }
+        currentTimeDisplay.textContent = "0:00";
+        durationDisplay.textContent = "0:00";
 
-        audio.src = audioUrl;
-        if (audioDownloadLink) audioDownloadLink.href = audioUrl;
-
+        audio.src = fullUrl;
+        audio.load();
+        playToggle.checked = true;
         disableOtherButtons(btn.id);
-        if (playToggle) playToggle.checked = true;
         audio.play();
       });
     });
 
-    function disableOtherButtons(id: string) {
+    function disableOtherButtons(activeId) {
       playButtons.forEach((btn) => {
-        if (btn instanceof HTMLInputElement && btn.id !== id) {
-          btn.checked = false;
+        if (!(btn instanceof HTMLInputElement)) return;
+
+        const btnUrl = btn.dataset.audioUrl;
+        if (!btnUrl) return;
+
+        const fullUrl = new URL(encodeURI(btnUrl), location.origin).href;
+        const isSameAudio = audio.src === fullUrl;
+        const isActive = btn.id === activeId;
+
+        const shouldBeChecked =
+          !audio.paused && isSameAudio && (isActive || activeId === null);
+        btn.checked = shouldBeChecked;
+
+        const card = btn.closest(".audio-card");
+        if (card) {
+          card.dataset.active = shouldBeChecked ? "true" : "false";
         }
       });
     }
 
-    // Keyboard shortcuts
     document.addEventListener("keydown", (event) => {
-      if (event.code === "Space") {
-        event.preventDefault();
-        playToggle?.click();
-      }
-      if (event.code === "ArrowRight") {
-        event.preventDefault();
-        audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
-      }
-      if (event.code === "ArrowLeft") {
-        event.preventDefault();
-        audio.currentTime = Math.max(0, audio.currentTime - 5);
+      const target = document.activeElement;
+      if (["INPUT", "TEXTAREA"].includes(target.tagName)) return;
+
+      switch (event.code) {
+        case "Space":
+          event.preventDefault();
+          playToggle?.click();
+          break;
+        case "ArrowRight":
+          event.preventDefault();
+          audio.currentTime = Math.min(audio.duration, audio.currentTime + 5);
+          break;
+        case "ArrowLeft":
+          event.preventDefault();
+          audio.currentTime = Math.max(0, audio.currentTime - 5);
+          break;
       }
     });
   });
