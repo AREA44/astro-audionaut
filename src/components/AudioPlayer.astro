@@ -11,7 +11,7 @@
   <label id="audio-control" class="swap md:mx-2 hidden shrink-0">
     <input type="checkbox" id="play-icon" aria-label="Play and pause" />
     <div class="swap-off">
-      <!-- Play SVG -->
+      <!-- Play icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -27,7 +27,7 @@
       </svg>
     </div>
     <div class="swap-on">
-      <!-- Pause SVG -->
+      <!-- Pause icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="h-5 w-5"
@@ -56,7 +56,7 @@
   <label class="swap ml-3">
     <input id="mute-icon" type="checkbox" aria-label="Mute and Unmute" />
     <div class="swap-off">
-      <!-- Volume On SVG -->
+      <!-- Volume On icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -74,7 +74,7 @@
       </svg>
     </div>
     <div class="swap-on">
-      <!-- Volume Off SVG -->
+      <!-- Volume Off icon -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="24"
@@ -124,6 +124,12 @@
       audioControl.classList.remove("hidden");
     });
 
+    audio.addEventListener("error", () => {
+      alert("❌ Audio failed to load. Please check the path or server.");
+      audioLoading.classList.add("hidden");
+      audioControl.classList.add("hidden");
+    });
+
     playToggle?.addEventListener("change", () => {
       if (audio.paused) {
         audio.play();
@@ -163,11 +169,20 @@
       btn.addEventListener("click", () => {
         if (!(btn instanceof HTMLInputElement)) return;
 
-        const audioUrl = btn.dataset.audioUrl;
-        if (!audioUrl) return;
+        const rawUrl = btn.dataset.audioUrl;
+        if (!rawUrl) return;
 
-        // Same audio
-        if (audio.src === audioUrl) {
+        const encodedUrl = rawUrl.startsWith("http")
+          ? rawUrl
+          : encodeURI(rawUrl);
+        const currentSrc = decodeURIComponent(
+          audio.src.replace(location.origin, ""),
+        );
+        const targetSrc = decodeURIComponent(encodedUrl);
+
+        const isSameAudio = currentSrc === targetSrc;
+
+        if (isSameAudio) {
           if (audio.paused) {
             audio.play();
           } else {
@@ -188,9 +203,8 @@
         currentTimeDisplay.textContent = "0:00";
         durationDisplay.textContent = "0:00";
 
-        audio.src = audioUrl;
+        audio.src = encodedUrl;
         audio.load();
-
         playToggle.checked = true;
         disableOtherButtons(btn.id);
         audio.play();
@@ -201,7 +215,9 @@
       playButtons.forEach((btn) => {
         if (!(btn instanceof HTMLInputElement)) return;
 
-        const isSameAudio = btn.dataset.audioUrl === audio.src;
+        const isSameAudio = decodeURIComponent(audio.src).includes(
+          decodeURIComponent(btn.dataset.audioUrl),
+        );
         const isActive = btn.id === activeId;
         const shouldBeChecked =
           !audio.paused && isSameAudio && (isActive || activeId === null);
