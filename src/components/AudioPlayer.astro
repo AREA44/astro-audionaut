@@ -8,40 +8,35 @@
     id="audio-loading"
     class="loading loading-spinner loading-md hidden min-w-[1.5rem]"></span>
 
-  <label id="audio-control" class="swap hidden mx-3">
-    <input type="checkbox" id="play-icon" aria-label="Play and Pause" />
+  <label id="audio-control" class="swap md:mx-2 hidden shrink-0">
+    <input type="checkbox" id="play-icon" aria-label="Play and pause" />
     <div class="swap-off">
       <!-- Play SVG -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        class="h-5 w-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
+        <polygon
+          points="5 3 19 12 5 21 5 3"
           stroke-width="2"
-          d="M5 3v18l15-9-15-9z"></path>
+          stroke-linecap="round"
+          stroke-linejoin="round"></polygon>
       </svg>
     </div>
     <div class="swap-on">
       <!-- Pause SVG -->
       <svg
         xmlns="http://www.w3.org/2000/svg"
-        width="24"
-        height="24"
+        class="h-5 w-5"
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
       >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M10 4h2v16h-2zM14 4h2v16h-2z"></path>
+        <rect x="6" y="4" width="4" height="16" stroke-width="2"></rect>
+        <rect x="14" y="4" width="4" height="16" stroke-width="2"></rect>
       </svg>
     </div>
   </label>
